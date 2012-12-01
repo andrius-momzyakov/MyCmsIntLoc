@@ -1,0 +1,128 @@
+<P>Типичная техника отображения, проиллюстрированная в документации, выглядит примерно так:</P>
+<PRE><CODE>
+from django.template.loader import get_template
+from django.template import Context
+from django.http import HttpResponse
+import datetime
+
+def view1(request):
+    t = get_template('my_template.html')
+    topic = ‘О вреде курения’
+    html = t.render(Context({'topic':topic}))
+    return HttpResponse(html)
+</code></pre>
+
+<P>То же самое можно записать в одну строку, если использовать обёртку <code>render_to_response()</code> (понадобится дополнительно проимпортировать её из пакета <code>django.shortcuts</code>):</p>
+<PRE><CODE>…
+from django.shortcuts import render_to_response
+
+def view1(request):
+    topic = ‘О вреде курения’
+    return render_to_response(‘my_template.html’, {‘topic’:topic})</code></pre>
+
+<P>В первом и втором примерах мы читаем шаблон из файла файловой системы. Такой подход безусловно можно рекомендовать в большинстве случаев, когда есть возможность достаточно легко откорректировать либо заменить файл, содержащий шаблон, который обычно расположен в файловой системе веб-сервера. Однако что делать, если наш сайт расположен на сервере виртуального хостинга и доступ к нему возможен только по протоколу SSH, а Вы большую часть времени проводите на работе в офисной сети, где доступ на внешние сайты по протоколу SSH закрыт? Варианта два – ждать окончания рабочего дня или обеспечить доступ к шаблонам по общедоступному протоколу, например http. Далее в этой статье мы остановимся на втором варианте.</p>
+<P>C точки зрения Django класс Template – всего лишь обёртка для обычной строки, содержащей в себе управляющие команды и символы, которые показывают обработчику шаблонов, какие данные контекста и каким образом вставить в шаблон. Поэтому наш пример можно переписать и так:</p>
+<PRE><CODE>…
+from django.template import Context, Template
+
+def view1(request):
+    topic = ‘О вреде курения’
+    t = Template(‘Много статей на тему “{{ topic }}”’)
+    c = Context({‘topic’:topic})
+    return HttpResponse(t.render(c))
+</code></pre>
+<P>У данного решения есть несколько недостатков:</p>
+<P>1.	Очевидно, данное решение не предполагает использование в шаблоне тэгов <code>{% extends %}</code> и <code>{% include%}</code>;</p>
+<P>2.	Зарезервированные символы языка html, содержащиеся в переменной контекста, Django при обработке шаблона по умолчанию заменит на escape-последовательности);</p>
+<P>3.	Если код шаблона или переменная контекста содержат веб-форму, то мы получим ошибку обработки шаблона по причине отсутствия метки защиты от CSRF (Сross Site Request Forgery — подделка межсайтовых запросов).</p>
+<P>А сейчас рассмотрим, насколько серьёзны перечисленные недостатки.</p>
+<P>Первый недостаток легко устраняется последовательной обработкой шаблонов, например:</p>
+<PRE><CODE>…
+def view2(request):
+    parent_template = Template('&lt;h1&gt;{{ title }}&lt;/h1&gt;{{ parent_content }}')
+    child_template = Template('Сегодня поговорим на тему "{{ child_content }}".')
+    child_context = Context({'child_content':'вреда курения'})
+    parent_context = Context({'parent_content':child_template.render(child_context),
+					          'title':'Лекция о вреде курения'})
+    return HttpResponse(parent_template.render(parent_context))</pre></code>
+
+<P>В приведённом выше коде для ясности использован нестрогий html-синтаксис.</p>
+<P>Веб-сервер вернёт нам следующее:</p>
+<img width=274 height=234 src="/static/file/USING_DJANGO_TEMPLATES_WO_FILES/image002.jpg" >
+<P>Теперь немного изменим наш пример, выделив слова про вред курения жирным написанием, используя теги «&lt;B&gt;» и «&lt;/b&gt;»:</p>
+<PRE><CODE>def view2(request):
+    parent_template = Template('&lt;h1&gt;{{ title }}&lt;/h1&gt;{{ parent_content }}')
+    child_template = Template('Сегодня поговорим на тему "{{ child_content }}".')
+    child_context = Context({'child_content':'<B>вреда курения</b>'})
+    parent_context = Context({'parent_content':child_template.render(child_context),
+							  'title':'Лекция о вреде курения'})
+    return HttpResponse(parent_template.render(parent_context))</pre></code>
+
+<P>В результате получим не совсем то, чего добивались:</p>
+<img width=274 height=234 src="/static/file/USING_DJANGO_TEMPLATES_WO_FILES/image004.jpg">
+
+<P>Дело в том, что Django при обработке шаблонов заменяет зарезервированные в html символы escape-последовательностями, 
+т.е. вместо «&lt;B&gt;» «&lt;/b&gt;» подставляет «&amp;lt;B&amp;gt;» и «&amp;lt;/b&amp;gt;».</p>
+<P>В нашем случае это необходимо отключить, заменив <br>
+<PRE><CODE>
+    child_template = Template('Сегодня поговорим на тему "{{ child_content }}".')</pre></code><br>
+на<br>
+<PRE><CODE>
+    child_template = Template('Сегодня поговорим на тему "{% autoescape off %}' + \
+	                          '{{ child_content }}{% endautoescape %}".')</pre></code><br>
+после чего всё встаёт на свои места:</p>
+<img width=274 height=234 src="/static/file/USING_DJANGO_TEMPLATES_WO_FILES/image006.jpg">
+<P>Теперь добавим в наш шаблон html-форму. Как известно из документации Django, шаблон в 
+этом случае должен содержать после открывающего тэга &lt;FORM&gt; специальный блок, генерирующий 
+скрытое поле формы с меткой защиты от CSRF: <CODE>{% csrf_token %}</code>. 
+Однако, следуя документации, для этого следует использовать для создания контекста экземпляр контекста, 
+создаваемый при помощи класса <CODE>RequestContext</code>, причём пару ключ-значение для использования в метке защиты от CSRF 
+необходимо получать явно при помощи функции csrf:
+<PRE><CODE>
+from django.core.context_processors import csrf 
+…
+context = {}
+context.update(csrf(request))
+context_instance = RequestContext(request, context)   
+…
+return HttpResponse(Template(<строка шаблона с формой>).render(t.Context(context_instance))
+</pre></code>
+<P>Поэтому наше представление надо переписать следующим образом:</p>
+<PRE><CODE>
+def view2(request):
+    if request.method=='POST':
+        # здесь производим обработку post-запроса
+        return redirect('/') # перенаправление для 
+                             #избежания повторной отправки post-запросов 
+                             #при обновлении страницы,
+                             #корневой каталог взят для примера 
+    # формируем экземпляр контекста
+    context = {}
+    context.update(csrf(request))
+    context_instance = RequestContext(request, context)
+    #
+    parent_template = Template('&lt;h1&gt;{{ title }}&lt;/h1&gt;{{ parent_content }}')
+    child_template = Template('Сегодня поговорим на тему "{% autoescape off %}' + \
+	                          '{{ child_content }}{% endautoescape %}".' 
+                              '&lt;FORM action="." method="POST"&gt;{% csrf_token %}' + \
+                              '&lt;TABLE&gt;{{comment_form.as_table}}&lt;/table&gt;' + \
+                              '&lt;input type="submit" value="Отправить">&lt;/form&gt;')
+    comment_form=CommentForm()
+    context_instance.update({'child_content':'&lt;B>вреда курения&lt;/b&gt;', \
+	                         'comment_form':comment_form})
+    parent_context = Context({'parent_content':child_template.render(context_instance), \
+	                          'title':'Лекция о вреде курения'})
+    return HttpResponse(parent_template.render(parent_context))
+</pre></code>
+<P>В результате получаем то, что нам нужно, без использования шаблонов, сохранённых в файлах:</p>
+<img width=274 height=234 src="/static/file/USING_DJANGO_TEMPLATES_WO_FILES/image008.jpg">
+<P>Следующий шаг – разместить нужные нам шаблоны в моделях Django и в представлениях 
+запрашивать шаблоны из соответствующих моделей. 
+Возможно, это будет работать несколько медленнее канонической техники с файлами шаблонов, 
+но даёт нам возможность максимально оперативно откорректировать содержимое шаблонов, 
+если, например, мы создаём систему управления контентом и для конечного пользователя 
+прямой доступ на редактирование к файлам, размещённым в каталогах на веб-сервере, закрыт.</p>
+
+
+
+

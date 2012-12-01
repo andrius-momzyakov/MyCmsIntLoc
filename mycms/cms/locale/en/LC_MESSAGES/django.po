@@ -1,0 +1,252 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-22 14:53+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:13
+msgid "Section:"
+msgstr ""
+
+#: forms.py:14
+msgid "File:"
+msgstr ""
+
+#: models.py:29
+msgid "Yes"
+msgstr ""
+
+#: models.py:29
+msgid "No"
+msgstr ""
+
+#: models.py:39
+msgid "User's group"
+msgstr ""
+
+#: models.py:40
+msgid "Parent menu item"
+msgstr ""
+
+#: models.py:41
+msgid "Section's unique code"
+msgstr ""
+
+#: models.py:42
+msgid "Menu items's name"
+msgstr ""
+
+#: models.py:43
+msgid "Menu items's name in russian"
+msgstr ""
+
+#: models.py:44
+msgid "Menu items's name in english"
+msgstr ""
+
+#: models.py:45 models.py:351
+msgid "Description"
+msgstr ""
+
+#: models.py:46
+msgid "'Yes' for menu item, 'No' for reference"
+msgstr ""
+
+#: models.py:47
+msgid "Ordinal number"
+msgstr ""
+
+#: models.py:48
+msgid "'Yes'-switched on, 'No'-switched off"
+msgstr ""
+
+#: models.py:79
+msgid "Section"
+msgstr ""
+
+#: models.py:80
+msgid "Page's title"
+msgstr ""
+
+#: models.py:82
+msgid "Page's title in russian"
+msgstr ""
+
+#: models.py:84
+msgid "Page's title in english"
+msgstr ""
+
+#: models.py:86
+msgid "Pub. Date"
+msgstr ""
+
+#: models.py:87
+msgid "Close date"
+msgstr ""
+
+#: models.py:88
+msgid "Template"
+msgstr ""
+
+#: models.py:89
+msgid "GET-parameters"
+msgstr ""
+
+#: models.py:128
+msgid "content HTML"
+msgstr ""
+
+#: models.py:129
+msgid "content HTML (english)"
+msgstr ""
+
+#: models.py:130
+msgid "content HTML (russian)"
+msgstr ""
+
+#: models.py:154
+msgid ""
+"<P>WARNING: There is no translation in your preferred language. Read the "
+"original text or select one of available translations:</p>"
+msgstr ""
+
+#: models.py:174
+msgid "User"
+msgstr ""
+
+#: models.py:218
+msgid "Blog to publish in"
+msgstr ""
+
+#: models.py:219
+msgid "Let comments (Y/N)"
+msgstr ""
+
+#: models.py:220
+msgid "Topic"
+msgstr ""
+
+#: models.py:324
+msgid "Blog Entry"
+msgstr ""
+
+#: models.py:325
+msgid "Creation Date"
+msgstr ""
+
+#: models.py:326 models.py:426
+msgid "Your name*"
+msgstr ""
+
+#: models.py:327
+msgid "Your e-mail (won't be published anyway)"
+msgstr ""
+
+#: models.py:329
+msgid "Comment*"
+msgstr ""
+
+#: models.py:338
+msgid "Username"
+msgstr ""
+
+#: models.py:339
+msgid "Last visited URL"
+msgstr ""
+
+#: models.py:340
+msgid "Time zone"
+msgstr ""
+
+#: models.py:341
+msgid "Blogger's nickname"
+msgstr ""
+
+#: models.py:350
+msgid "Template's code"
+msgstr ""
+
+#: models.py:352
+msgid "Template body"
+msgstr ""
+
+#: models.py:353
+msgid "Base template"
+msgstr ""
+
+#: models.py:427
+msgid "Your e-mail"
+msgstr ""
+
+#: models.py:428
+msgid "Subject*"
+msgstr ""
+
+#: models.py:429
+msgid "Message body*"
+msgstr ""
+
+#: models.py:440 models.py:452
+msgid "Value is required"
+msgstr ""
+
+#: models.py:441 models.py:453
+msgid "String is incorrect"
+msgstr ""
+
+#: models.py:442 models.py:454
+msgid "Type a string from the picture*"
+msgstr ""
+
+#: views.py:83
+msgid "Page for given section not found."
+msgstr ""
+
+#: views.py:85
+msgid "Section haven't been given or not exists. Page not found."
+msgstr ""
+
+#: views.py:86
+msgid "Unknown error when returning a page."
+msgstr ""
+
+#: views.py:143
+msgid "Compose and send a message:"
+msgstr ""
+
+#: views.py:150
+msgid "Send"
+msgstr ""
+
+#: views.py:170
+msgid "Message sent successfully."
+msgstr ""
+
+#: views.py:180
+msgid "Your name"
+msgstr ""
+
+#: views.py:181
+msgid "Comment"
+msgstr ""
+
+#: views.py:227
+msgid "Upload"
+msgstr ""
+
+#: views.py:242
+msgid "Data uploaded successfully."
+msgstr ""

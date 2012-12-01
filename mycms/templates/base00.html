@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>{{ title }}</title>
+  <LINK rel="stylesheet" href="{{ STATIC_URL }}base.css" type="text/css">
+  <script type="text/javascript" src="{{ STATIC_URL }}js/getstyle.js"></script>
+  </head>
+  <body>
+
+<div class="header">
+  {% block header %}
+      <div id="sitename" style="width:35%;float:left;"><img align="left" src="{{ STATIC_URL }}epyfandblue.png"></div>
+      <div style="width:20%;height:57px;text-align:center;float:left;background-image:inherit">
+        <a href="/contacts/">Обратная<br>связь</a></div>
+      <div style="width:20%;text-align:center;float:left;background-image:inherit">
+        Сегодня:<br> {{ curdate }}</div>
+      {% if user.is_authenticated %}
+      <div style="width:20%;height:57px;text-align:center;float:left;background-image:inherit">
+        Вы зашли как:<br> {{ user.get_full_name }}</div>
+      {% else %}
+      <div style="width:20%;height:57px;text-align:center;float:left;background-image:inherit">
+        Вы зашли как:<br> Гость</div>
+      {% endif %}
+  {% endblock %}
+</div>
+
+<div id="sidebar" class="sidebar">
+
+  <div class="sidebarmenu" >
+    {% block menu %}
+      <div class="sidemenuref">
+      <p></p>
+	  {% for item in menu_items %}
+	    <a href="/content/{{ item.code }}/">{{ item.name }}</a><br><p></p>
+	  {% endfor%}
+      {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+        <a href="/admin/">Администратор</a><br><p></p>
+            {% endif %}
+        <!--<a href="/edit_reg/">Мои регистрационные данные</a><br><p></p>-->
+        <a href="/logout/">Выйти</a><br><p></p>
+      </div>
+      {% else %}
+      </div>
+      <p><p>
+        <form class="sideauthform" action='/' method='post'>
+          {% csrf_token %}
+          <label for="username">Логин:<br /></label>
+          <input style="width:80%" type="text" name="username" value="" id="username"><br />
+          <label for="password">Пароль:<br /></label>
+          <input style="width:80%" type="password" name="password" value="" id="password"><br />
+          <input type="submit" value="Вход" />
+          <P class="sideauthform" ><a href="/reg/">Регистрация</a></p>
+        </form>
+      {% endif %}
+    {% endblock %}
+  </div>  
+</div>
+
+<div id="content" class="content">
+    {%  autoescape off %} {{ content }} {% endautoescape %}
+</div>
+
+<div style="clear:both; height:15px"></div>
+<div id="footer" class="footer">
+    <div style="text-align:center;width:50%;float:left; ">     
+        Автор: Момзяков Андрей Юрьевич</div>
+    <div style="text-align:center;width:50%;float:left; ">     
+        <a href="/contacts/">Написать</a></div>
+    <div style="text-align:center;clear:both; ">     
+      Москва, 2011 год.</div>
+</div>
+  </body>
+</html>

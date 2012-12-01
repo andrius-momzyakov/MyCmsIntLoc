@@ -1,0 +1,27 @@
+﻿<table>
+
+{% for blog_entry in blog_entries %}
+<TR>
+<TD><h4>{{ blog_entry.title }}</h4></td>
+<TD>Опубликовано: {{ blog_entry.pub_date }}</td>
+<TD>Комментариев: 0</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<div class="pagination">
+<span class="step-links">
+<a href="?page=1">В начало</a>
+{% if blog_entries.has_previous %}
+<a href="?page={{ blog_entries.previous_page_number }}">Предыдущая</a>
+{% endif %}
+<span class="current">
+Page {{ blog_entries.number }} of {{ blog_entries.paginator.num_pages }}.
+</span>
+{% if blog_entries.has_next %}
+<a href="?page={{ blog_entries.next_page_number }}">next</a>
+{% endif %}
+<a href="?page= {{ blog_entries.paginator.num_pages }}">В конец</a>
+</span>
+</div>

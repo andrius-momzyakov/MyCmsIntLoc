@@ -1,0 +1,6 @@
+    user_grp =  models.ForeignKey(Group, verbose_name='╨У╤А╤Г╨┐╨┐╨░ ╨┐╨╛╨╗╤М╨╖╨╛
+╨▓╨░╤В╨╡╨╗╨╡╨╣', null=True, blank=True) #╨│╤А╤Г╨┐╨┐╨░ ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╨╡╨╣
+ ╨┤╨╗╤П ╤Б╨║╤А╤Л╤В╤Л╤Е ╨┐╤Г╨╜╨║╤В╨╛╨▓ ╨╝╨╡╨╜╤О ╨╡╨╗╨╕ ╨┐╤Г╨▒╨╗╨╕╤З╨╜╤Л╨╣ ╨░╨╣╤В╨
+╡╨╝ -  None
+           ^
+SyntaxError: invalid syntax

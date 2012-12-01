@@ -1,0 +1,224 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-19 15:00+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: cms/forms.py:13
+msgid "Section:"
+msgstr ""
+
+#: cms/forms.py:14
+msgid "File:"
+msgstr ""
+
+#: cms/models.py:29
+msgid "Yes"
+msgstr ""
+
+#: cms/models.py:29
+msgid "No"
+msgstr ""
+
+#: cms/models.py:39
+msgid "User's group"
+msgstr ""
+
+#: cms/models.py:40
+msgid "Parent menu item"
+msgstr ""
+
+#: cms/models.py:41
+msgid "Section's unique code"
+msgstr ""
+
+#: cms/models.py:42
+msgid "Menu items's name"
+msgstr ""
+
+#: cms/models.py:43
+msgid "Menu items's name in russian"
+msgstr ""
+
+#: cms/models.py:44
+msgid "Menu items's name in english"
+msgstr ""
+
+#: cms/models.py:45 cms/models.py:295
+msgid "Description"
+msgstr ""
+
+#: cms/models.py:46
+msgid "'Yes' for menu item, 'No' for reference"
+msgstr ""
+
+#: cms/models.py:47
+msgid "Ordinal number"
+msgstr ""
+
+#: cms/models.py:48
+msgid "'Yes'-switched on, 'No'-switched off"
+msgstr ""
+
+#: cms/models.py:77
+msgid "Section"
+msgstr ""
+
+#: cms/models.py:78
+msgid "Page's title"
+msgstr ""
+
+#: cms/models.py:80
+msgid "Pub. Date"
+msgstr ""
+
+#: cms/models.py:81
+msgid "Close date"
+msgstr ""
+
+#: cms/models.py:82
+msgid "Template"
+msgstr ""
+
+#: cms/models.py:83
+msgid "GET-parameters"
+msgstr ""
+
+#: cms/models.py:106
+msgid "content HTML"
+msgstr ""
+
+#: cms/models.py:107
+msgid "content HTML (english)"
+msgstr ""
+
+#: cms/models.py:108
+msgid "content HTML (russian)"
+msgstr ""
+
+#: cms/models.py:140
+msgid "User"
+msgstr ""
+
+#: cms/models.py:173
+msgid "Blog to publish in"
+msgstr ""
+
+#: cms/models.py:174
+msgid "Let comments (Y/N)"
+msgstr ""
+
+#: cms/models.py:175
+msgid "Topic"
+msgstr ""
+
+#: cms/models.py:268
+msgid "Blog Entry"
+msgstr ""
+
+#: cms/models.py:269
+msgid "Creation Date"
+msgstr ""
+
+#: cms/models.py:270 cms/models.py:370
+msgid "Your name*"
+msgstr ""
+
+#: cms/models.py:271
+msgid "Your e-mail (won't be published anyway)"
+msgstr ""
+
+#: cms/models.py:273
+msgid "Comment*"
+msgstr ""
+
+#: cms/models.py:282
+msgid "Username"
+msgstr ""
+
+#: cms/models.py:283
+msgid "Last visited URL"
+msgstr ""
+
+#: cms/models.py:284
+msgid "Time zone"
+msgstr ""
+
+#: cms/models.py:285
+msgid "Blogger's nickname"
+msgstr ""
+
+#: cms/models.py:294
+msgid "Template's code"
+msgstr ""
+
+#: cms/models.py:296
+msgid "Template body"
+msgstr ""
+
+#: cms/models.py:297
+msgid "Base template"
+msgstr ""
+
+#: cms/models.py:371
+msgid "Your e-mail"
+msgstr ""
+
+#: cms/models.py:372
+msgid "Subject*"
+msgstr ""
+
+#: cms/models.py:373
+msgid "Message body*"
+msgstr ""
+
+#: cms/models.py:384 cms/models.py:396
+msgid "Value is required"
+msgstr ""
+
+#: cms/models.py:385 cms/models.py:397
+msgid "String is incorrect"
+msgstr ""
+
+#: cms/models.py:386 cms/models.py:398
+msgid "Type a string from the picture*"
+msgstr ""
+
+#: cms/views.py:75
+msgid "Page for given section not found."
+msgstr ""
+
+#: cms/views.py:77
+msgid "Section haven't been given or not exists. Page not found."
+msgstr ""
+
+#: cms/views.py:78
+msgid "Unknown error when returning a page."
+msgstr ""
+
+#: cms/views.py:135
+msgid "Отправка сообщения:"
+msgstr ""
+
+#: cms/views.py:142
+msgid "Отправить"
+msgstr ""
+
+#: recaptcha/field.py:10
+msgid "Invalid captcha"
+msgstr ""
