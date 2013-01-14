@@ -57,7 +57,7 @@ class StandardSection(models.Model):
         return ''
     
   def __unicode__(self):
-     return self.code + '_' + self.name
+     return self.code #+ '_' + self.name
 	 
   def get_id(self):
     return int(self.id)
@@ -307,7 +307,7 @@ class BlogEntry(StandardPage):
     
     def __unicode__(self):
         if self.blog:
-            return self.blog.section.code + '_' + self.title
+            return self.blog.section.code #+ '_' + self.title
         return self.title
         
     def get_count(self):
