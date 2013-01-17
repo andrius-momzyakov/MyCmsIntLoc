@@ -146,7 +146,8 @@ class StandardPage(BasePage):
     #return t.Template(self.template.body).render(t.Context({'content':self.html, 'title':self.title})), False
     return t.Template(self.template.body).render(t.Context({'content':v_html_lang, 
                                                    'title':v_title_lang, 
-                                                   'lang_code':v_lang_code})), False
+                                                   'lang_code':v_lang_code,
+                                                   'translations':self.get_available_langs(request, *args, **kwargs)})), False
 
   def get_html_in_lang(self, lang_code=None):
     if lang_code == 'en':
@@ -172,6 +173,35 @@ class StandardPage(BasePage):
       return True
     except:
       return False
+      
+  def get_available_langs(self, request, *args, **kwargs):
+    '''
+    15/01/2013
+    reurns a list of anchors to all available translations
+    '''
+    all_translations = ['en', 'ru']
+    hrefs = ''
+    v_lang_code = self.get_lang_code(request, *args, **kwargs)
+    if v_lang_code not in ('en', 'ru'):
+      v_lang_code = 'ru'
+
+    # take off current content language from list
+    all_translations.remove(v_lang_code)
+    for lang in all_translations:
+      if lang=='ru' and not self.html_ru:
+        all_translations.remove(lang)
+      elif lang=='en' and not self.html_en:
+        all_translations.remove(lang)
+    
+    for lang in all_translations:
+      if hrefs=='':
+        if v_lang_code=='ru':
+          hrefs += u'Переводы: '
+        elif v_lang_code=='en':
+          hrefs += u'Translations: '
+      hrefs += '<A href="/content/' + self.section.code + '/' + lang + '/">' + '&nbsp;' + lang + '</a>' 
+       
+    return hrefs
 
 class BlogPage(BasePage):
   '''
@@ -186,6 +216,7 @@ class BlogPage(BasePage):
   3. TODO: special owner's mark in Admin part to let comment to be shown
   '''
   user = models.ForeignKey(User, verbose_name=_('User'), null=True, blank=True, unique=True)
+  nickname = models.CharField(max_length=80, verbose_name=_('Author\'s nickname'))
   
   def get_content(self, request, *args, **kwargs):
     # Blog's content is a list of blog entries' title
@@ -272,7 +303,8 @@ class BlogEntry(StandardPage):
                                                     'comments':comments, 
                                                     'comment_form':comment_form,
                                                     'blog_entry':self,
-                                                    'lang_code':v_lang_code})
+                                                    'lang_code':v_lang_code,
+                                                    'translations':self.get_available_langs(request, *args, **kwargs)})
               return t.Template(self.template.body).render(t.Context(context_instance)), True # to reload page when POST sent
         else:
             if request.GET.get('show_form')=='yes':
@@ -297,12 +329,14 @@ class BlogEntry(StandardPage):
                                                     'comments':comments, 
                                                     'comment_form':comment_form,
                                                     'blog_entry':self,
-                                                    'lang_code':v_lang_code})
+                                                    'lang_code':v_lang_code,
+                                                    'translations':self.get_available_langs(request, *args, **kwargs)})
         else:
             context_instance.update({'content':v_html_lang, 'title':v_title_lang, 
                                                     'comments':comments, 'comment_link':comment_link, #'comment_form':comment_form,
                                                     'blog_entry':self,
-                                                    'lang_code':v_lang_code})
+                                                    'lang_code':v_lang_code,
+                                                    'translations':self.get_available_langs(request, *args, **kwargs)})
         return t.Template(self.template.body).render(t.Context(context_instance)), show_form
     
     def __unicode__(self):

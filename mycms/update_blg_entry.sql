@@ -1,0 +1,1 @@
+alter table cms_blogpage add column nickname character varying(80) not null default 'null';
