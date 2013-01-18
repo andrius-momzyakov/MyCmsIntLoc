@@ -82,7 +82,8 @@ def dispatcher(request, section_code, lang_code=None):
       pass
     return HttpResponse(_(u'Page for given section not found.'))
   else:
-    return HttpResponse(_(u'Section haven\'t been given or not exists. Page not found.'))
+    #return HttpResponse(_(u'Section haven\'t been given or not exists. Page not found.'))
+    return show_result(request, 'section_not_found')
   return HttpResponse(_(u'Unknown error when returning a page.'))
   pass
   
@@ -190,6 +191,10 @@ def show_result(request, name):
     content = None
     if name=='message_sent':
         content = _(u'Message sent successfully.')
+    if name=='http404':
+        content = _(u'Requested page not found.')
+    if name=='section_not_found':
+        content = _(u'Section haven\'t been given or not exists. Page not found.')
     menu_items = m.StandardSection.objects.filter(is_menu_item='Y', is_active='Y').order_by('order')
     base_items = {'menu_items':menu_items, 'content':content, 'STATIC_URL':settings.STATIC_URL, 
                   'curr_date':datetime.datetime.now(tz=pytz.timezone('Europe/Moscow')), 'lang_code':v_lang_code}
@@ -269,4 +274,7 @@ def upload_static_file(request):
 
 def ok_message(request):
     return HttpResponse(_('Data uploaded successfully.'))
+    
+def http404(request):
+    return show_result(request, 'http404')
 

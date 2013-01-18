@@ -55,7 +55,7 @@ urlpatterns = patterns('',
 
     #url(r'^test/$', cms.views.test),
 
-    url(r'^', cms.views.hi)
+    url(r'^', cms.views.http404)
 )
 
 #urlpatterns += i18n_patterns('', 
