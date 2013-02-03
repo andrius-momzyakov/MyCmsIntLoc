@@ -446,22 +446,22 @@ class RequestLog(models.Model):
         try:
           self.path = request.get_full_path()
         except:
-          None
+          pass
         try:
           self.method = request.method
         except:
-          None
+          pass
         try:
           self.referer = request.META['HTTP_REFERER']
         except:
-          None
+          pass
         try:
             self.user = request.META['REMOTE_USER']
         except:
             try:
                 self.user = request.META['USERNAME']
             except:
-                None
+                pass
         self.ip = request.META['REMOTE_ADDR']
      
     def __unicode__(self):
